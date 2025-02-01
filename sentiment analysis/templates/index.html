@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentiment Analysis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Sentiment Analysis</h2>
+        <textarea id="text" placeholder="Enter text here..."></textarea>
+        <input type="file" id="file">
+        <button onclick="analyzeSentiment()">Analyze</button>
+        <div id="result">Result: </div>
+        <div id="messages"></div>
+        
+        <!-- Small Toggle Switch for Light/Dark Mode -->
+        <label class="switch">
+            <input type="checkbox" id="theme-toggle" onclick="toggleTheme()">
+            <span class="slider round"></span>
+        </label>
+    </div>
+
+    <script>
+        function analyzeSentiment() {
+            let text = document.getElementById("text").value;
+            let file = document.getElementById("file").files[0];
+            let formData = new FormData();
+            formData.append("text", text);
+            if (file) formData.append("file", file);
+
+            fetch("/analyze", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                const resultContainer = document.getElementById("result");
+                const messagesContainer = document.getElementById("messages");
+
+                resultContainer.innerHTML = "Result: ";
+
+                if (data.sentiments) {
+                    messagesContainer.innerHTML = '';
+                    data.sentiments.forEach(item => {
+                        const messageDiv = document.createElement('div');
+                        messageDiv.classList.add('message');
+
+                        if (item.sentiment.includes('Positive')) {
+                            messageDiv.classList.add('positive');
+                        } else if (item.sentiment.includes('Negative')) {
+                            messageDiv.classList.add('negative');
+                        } else {
+                            messageDiv.classList.add('neutral');
+                        }
+
+                        messageDiv.innerHTML = `<strong>Message:</strong> ${item.message}<br><strong>Sentiment:</strong> ${item.sentiment}`;
+                        messagesContainer.appendChild(messageDiv);
+                    });
+                } else {
+                    resultContainer.innerHTML = "Error analyzing sentiment.";
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                document.getElementById("result").innerText = "Error analyzing sentiment.";
+            });
+        }
+
+        function toggleTheme() {
+            const body = document.body;
+            const container = document.querySelector('.container');
+            const toggle = document.getElementById('theme-toggle');
+
+            body.classList.toggle('light-mode');
+            container.classList.toggle('light-mode');
+
+            // Update button text based on theme
+            if (toggle.checked) {
+                toggle.title = 'Switch to Dark Mode';
+            } else {
+                toggle.title = 'Switch to Light Mode';
+            }
+        }
+    </script>
+</body>
+</html>
