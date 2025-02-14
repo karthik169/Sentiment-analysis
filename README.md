@@ -38,8 +38,8 @@ Potential applications include customer feedback analysis, social media monitori
 
 **1.Clone the repository:**
 
-git clone https://github.com/your-username/sentiment-analysis.git
-cd sentiment-analysis
+git clone https://github.com/karthik169/Sentiment-analysis.git
+cd Sentiment-analysis
 
 **2.Install dependencies:**
 
@@ -68,7 +68,9 @@ Apply real-time sentiment analysis on live social media feeds.
 Feel free to contribute by reporting issues or adding improvements!
 
 **Input:**
+
 ![Screenshot 2025-02-01 121114](https://github.com/user-attachments/assets/a0687c10-974a-4528-adda-c172386ac67c)
 
 **Output**
+
 ![Screenshot 2025-02-01 121248](https://github.com/user-attachments/assets/8827ad2e-64a4-45e9-916b-c6c6afc9f7de)
