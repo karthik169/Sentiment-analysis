@@ -1,8 +1,8 @@
 # Sentiment-analysis
 
-**#Sentiment Analysis Project 🎭**
+**# Sentiment Analysis Project 🎭**
 
-**📌 ## Overview**
+**📌##Overview**
 
 This project focuses on sentiment analysis, a Natural Language Processing (NLP) technique used to determine the sentiment behind a given text. The goal is to classify text data as positive, negative, or neutral, helping businesses and researchers understand user opinions and feedback.
 
